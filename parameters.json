@@ -1,0 +1,46 @@
+[{
+    "name": "Phrase",
+    "value": "Hello",
+    "type": "string",
+    "help": "Phrase for which to generate voice samples",
+    "param": "phrase"
+},{
+    "name": "Label",
+    "value": "hello",
+    "type": "string",
+    "help": "Samples will be added to Edge Impulse with this label",
+    "param": "label"
+}, {
+    "name": "Number of samples",
+    "value": "3",
+    "type": "int",
+    "help": "Number of unique samples to generate",
+    "param": "samples"
+},{
+    "name": "Voice",
+    "value": "random",
+    "type": "select",
+    "valid": [
+        "random",
+        "alloy",
+        "echo",
+        "fable",
+        "onyx",
+        "nova",
+        "shimmer"
+    ],
+    "help": "Voice to use for speech generation",
+    "param": "voice",
+    "optional": true
+},{
+    "name": "Model",
+    "value": "tts-1",
+    "type": "select",
+    "valid": [
+        "tts-1",
+        "tts-1-hd"
+    ],
+    "help": "Model to use for speech generation",
+    "param": "model",
+    "optional": true
+}]
