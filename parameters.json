@@ -43,4 +43,16 @@
     "help": "Model to use for speech generation",
     "param": "model",
     "optional": true
+},{
+    "name": "Speed",
+    "value": 1,
+    "type": "float",
+    "help": "The speed of the generated audio. Select a value from `0.25` to `4.0`",
+    "param": "speed"
+},{
+    "name": "Minimum length",
+    "value": 1,
+    "type": "float",
+    "help": "Minimum length of generated audio samples. Audio samples will be padded with silence to minimum length",
+    "param": "min-length"
 }]

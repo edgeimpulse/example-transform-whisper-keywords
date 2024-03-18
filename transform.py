@@ -4,6 +4,7 @@ import requests
 import argparse
 import random
 from openai import OpenAI
+import pydub
 client = OpenAI()
 
 if not os.getenv('OPENAI_API_KEY'):
@@ -24,6 +25,8 @@ parser.add_argument('--label', type=str, required=True, help="Label for the audi
 parser.add_argument('--samples', type=int, required=True, help="Number of samples to generate")
 parser.add_argument('--voice', type=str, required=True, help="Voice to use for speech generation")
 parser.add_argument('--model', type=str, required=True, help="Model to use for speech generation")
+parser.add_argument('--min-length', type=float, required=True, help="Minimum length of generated audio samples. Audio samples will be padded with silence to minimum length")
+parser.add_argument('--speed', type=float, required=True, help="The speed of the generated audio")
 parser.add_argument('--skip-upload', type=bool, required=False, help="Skip uploading to EI", default=False)
 parser.add_argument('--out-directory', type=str, required=False, help="Directory to save audio samples to", default="output")
 args, unknown = parser.parse_known_args()
@@ -40,6 +43,8 @@ label = args.label
 base_samples_number = args.samples
 voice = args.voice
 model = args.model
+min_length = args.min_length
+speed = args.speed
 
 output_folder = 'output/'
 # Check if output directory exists and create it if it doesn't
@@ -58,7 +63,8 @@ for i in range(base_samples_number):
             model=model,
             voice=(voices[random.randint(0, len(voices) - 1)] if voice == "random" else voice),
             input=phrase,
-            response_format="wav"
+            response_format="wav",
+            speed=speed
         )
         fullpath = os.path.join(args.out_directory,f'{label}.{i}.wav')
         response.stream_to_file(fullpath)
@@ -75,6 +81,14 @@ if args.skip_upload:
 for file in os.listdir(output_folder):
     file_path = os.path.join(output_folder, file)
     if os.path.isfile(file_path):
+
+        # Pad audio file with silence to minimum length.
+        audio = pydub.AudioSegment.from_file(file_path)
+        pad_length = min_length - audio.duration_seconds
+        if pad_length > 0:
+            audio = audio + pydub.AudioSegment.silent(duration=pad_length * 1000)
+            audio.export(file_path, format="wav")
+
         with open(file_path, 'r') as file:
             res = requests.post(url='https://ingestion.edgeimpulse.com/api/training/files',
             headers={

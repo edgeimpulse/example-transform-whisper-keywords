@@ -1,6 +1,8 @@
-FROM python:3.7.5-stretch
+FROM python:3.10-alpine
 
 WORKDIR /app
+
+RUN apk update && apk add --no-cache ffmpeg
 
 # Python dependencies
 COPY requirements.txt ./
