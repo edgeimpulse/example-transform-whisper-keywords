@@ -6,13 +6,13 @@
     "param": "OPENAI_API_KEY"
 }, {
     "name": "Phrase",
-    "value": "Hello world",
+    "value": "Edge Impulse",
     "type": "string",
     "help": "Phrase for which to generate voice samples",
     "param": "phrase"
 }, {
     "name": "Label",
-    "value": "hello_world",
+    "value": "edge_impulse",
     "type": "string",
     "help": "Samples will be added to Edge Impulse with this label",
     "param": "label"
