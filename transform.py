@@ -31,6 +31,7 @@ parser.add_argument('--model', type=str, required=True, help="Model to use for s
 parser.add_argument('--min-length', type=float, required=True, help="Minimum length of generated audio samples. Audio samples will be padded with silence to minimum length")
 parser.add_argument('--speed', type=str, required=True, help="A list of possible speeds of the generated audio between 0.25 and 4 (e.g. '0.75, 1, 1.25')")
 parser.add_argument('--upload-category', type=str, required=True, help="Which category to upload data to in Edge Impule", default='split')
+parser.add_argument('--synthetic-data-job-id', type=int, required=False, help="If specified, sets the synthetic_data_job_id metadata key", default='split')
 parser.add_argument('--skip-upload', type=bool, required=False, help="Skip uploading to EI", default=False)
 parser.add_argument('--out-directory', type=str, required=False, help="Directory to save audio samples to", default="output")
 args, unknown = parser.parse_known_args()
@@ -106,9 +107,12 @@ for i in range(base_samples_number):
                         'x-label': label,
                         'x-api-key': API_KEY,
                         'x-metadata': json.dumps({
+                            'generated_by': model,
+                            'phrase': phrase,
                             'voice': voice_this_sample,
                             'speed': str(speed_this_sample),
-                        })
+                        }),
+                        'x-synthetic-data-job-id': str(args.synthetic_data_job_id) if args.synthetic_data_job_id is not None else None,
                     },
                     files = { 'data': (os.path.basename(fullpath), open(fullpath, 'rb'), 'audio/wav') }
                 )
