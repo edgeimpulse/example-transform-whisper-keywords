@@ -1,75 +1,102 @@
-[{
-    "name": "OpenAI API Key",
-    "value": "",
-    "type": "secret",
-    "help": "An API Key that gives access to OpenAI",
-    "param": "OPENAI_API_KEY"
-}, {
-    "name": "Phrase",
-    "value": "Edge Impulse",
-    "type": "string",
-    "help": "Phrase for which to generate voice samples",
-    "param": "phrase"
-}, {
-    "name": "Label",
-    "value": "edge_impulse",
-    "type": "string",
-    "help": "Samples will be added to Edge Impulse with this label",
-    "param": "label"
-}, {
-    "name": "Number of samples",
-    "value": "3",
-    "type": "int",
-    "help": "Number of unique samples to generate",
-    "param": "samples"
-}, {
-    "name": "Voice",
-    "value": "random",
-    "type": "select",
-    "valid": [
-        "random",
-        "alloy",
-        "echo",
-        "fable",
-        "onyx",
-        "nova",
-        "shimmer"
-    ],
-    "help": "Voice to use for speech generation",
-    "param": "voice",
-    "optional": true
-}, {
-    "name": "Model",
-    "value": "tts-1",
-    "type": "select",
-    "valid": [
-        "tts-1",
-        "tts-1-hd"
-    ],
-    "help": "Model to use for speech generation",
-    "param": "model",
-    "optional": true
-},{
-    "name": "Speed",
-    "value": "0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2",
-    "type": "string",
-    "help": "A list of possible speed of the generated audio. Select values between '0.25' and '4.0'. A random one will be picked for each sample.",
-    "param": "speed"
-},{
-    "name": "Minimum length (seconds)",
-    "value": 1,
-    "type": "float",
-    "help": "Minimum length of generated audio samples. Audio samples will be padded with silence to minimum length",
-    "param": "min-length"
-}, {
-    "name": "Upload to category",
-    "value": "split",
-    "type": "select",
-    "valid": [
-        { "label": "Split 80/20 between training and testing", "value": "split" },
-        { "label": "Training", "value": "training" },
-        { "label": "Testing", "value": "testing" }
-    ],
-    "help": "Data will be uploaded to this category in your project",
-    "param": "upload-category"
-}]
+{
+    "version": 1,
+    "type": "synthetic-data",
+    "info": {
+        "name": "Whisper Synthetic Voice Generator",
+        "description": "Uses OpenAI's text-to-speech model to generate synthetic voice samples. Very useful for building keyword spotting models for arbitrary keywords."
+    },
+    "parameters": [
+        {
+            "name": "OpenAI API Key",
+            "value": "",
+            "type": "secret",
+            "help": "An API Key that gives access to OpenAI",
+            "param": "OPENAI_API_KEY"
+        },
+        {
+            "name": "Phrase",
+            "value": "Edge Impulse",
+            "type": "string",
+            "help": "Phrase for which to generate voice samples",
+            "param": "phrase"
+        },
+        {
+            "name": "Label",
+            "value": "edge_impulse",
+            "type": "string",
+            "help": "Samples will be added to Edge Impulse with this label",
+            "param": "label"
+        },
+        {
+            "name": "Number of samples",
+            "value": "3",
+            "type": "int",
+            "help": "Number of unique samples to generate",
+            "param": "samples"
+        },
+        {
+            "name": "Voice",
+            "value": "random",
+            "type": "select",
+            "valid": [
+                "random",
+                "alloy",
+                "echo",
+                "fable",
+                "onyx",
+                "nova",
+                "shimmer"
+            ],
+            "help": "Voice to use for speech generation",
+            "param": "voice",
+            "optional": true
+        },
+        {
+            "name": "Model",
+            "value": "tts-1",
+            "type": "select",
+            "valid": [
+                "tts-1",
+                "tts-1-hd"
+            ],
+            "help": "Model to use for speech generation",
+            "param": "model",
+            "optional": true
+        },
+        {
+            "name": "Speed",
+            "value": "0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2",
+            "type": "string",
+            "help": "A list of possible speed of the generated audio. Select values between '0.25' and '4.0'. A random one will be picked for each sample.",
+            "param": "speed"
+        },
+        {
+            "name": "Minimum length (seconds)",
+            "value": 1,
+            "type": "float",
+            "help": "Minimum length of generated audio samples. Audio samples will be padded with silence to minimum length",
+            "param": "min-length"
+        },
+        {
+            "name": "Upload to category",
+            "value": "split",
+            "type": "select",
+            "valid": [
+                {
+                    "label": "Split 80/20 between training and testing",
+                    "value": "split"
+                },
+                {
+                    "label": "Training",
+                    "value": "training"
+                },
+                {
+                    "label": "Testing",
+                    "value": "testing"
+                }
+            ],
+            "help": "Data will be uploaded to this category in your project",
+            "param": "upload-category"
+        }
+    ]
+}
